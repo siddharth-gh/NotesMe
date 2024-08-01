@@ -30,13 +30,13 @@ export default function Login(props) {
                 })
             });
 
+            const user = await response.json();
+
             if (!response.ok) {
-                const errorMessage = await response.json();
-                toast.error(errorMessage.alert)
+                toast.error(user.alert)
                 return;
             }
 
-            const user = await response.json();
             localStorage.setItem('token', user.token)
             localStorage.setItem('name', user.userData.name)
 
