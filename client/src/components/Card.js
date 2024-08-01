@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import styles from './Card.module.scss'
 import { Icon } from '@iconify/react'
+import { url } from '../assets'
 
 function Card(props) {
 
@@ -8,7 +9,7 @@ function Card(props) {
     const [editing, setEditing] = useState(false);
 
     const handleDelete = async (noteId) => {
-        const response = await fetch(`http://localhost:8000/api/notes/deletenote/${noteId}`, {
+        const response = await fetch(`${url}/api/notes/deletenote/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',  // Specify the content type
@@ -31,7 +32,7 @@ function Card(props) {
     }
 
     const updateNote = async (noteId) => {
-        const response = await fetch(`http://localhost:8000/api/notes/updatenote/${noteId}`, {
+        const response = await fetch(`${url}/api/notes/updatenote/${noteId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',  // Specify the content type

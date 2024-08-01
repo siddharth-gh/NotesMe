@@ -6,8 +6,11 @@ import Sidebar from './Sidebar'
 import { useEffect, useState } from 'react';
 import styles from './Home.module.scss'
 import { useNavigate } from 'react-router-dom';
+import { url } from '../assets';
 
 export default function Home(props) {
+
+
 
 
     const navigate = useNavigate();
@@ -26,7 +29,7 @@ export default function Home(props) {
     }
 
     const getNotes = async () => {
-        const notes = await fetch("http://localhost:8000/api/notes/getnotes", {
+        const notes = await fetch(`${url}/api/notes/getnotes`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',  // Specify the content type

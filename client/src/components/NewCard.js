@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styles from './Card.module.scss'
+import { url } from '../assets';
 
 
 function NewCard(props) {
@@ -17,7 +18,7 @@ function NewCard(props) {
     }
 
     const saveNote = async () => {
-        const response = await fetch('http://localhost:8000/api/notes/addnote', {
+        const response = await fetch(`${url}/api/notes/addnote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',  // Specify the content type

@@ -1,0 +1,1 @@
+export const url = "https://notesme-backend-10nf.onrender.com"
