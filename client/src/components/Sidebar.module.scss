@@ -1,0 +1,39 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px;
+    background-color: #3C3D43;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 8px 0px 24px #00000045;
+
+    svg {
+        height: 40px;
+        width: 40px;
+        color: white;
+        cursor: pointer;
+        filter: drop-shadow(2px black);
+    }
+
+    .logo {
+        padding-top: 30px;
+
+    }
+
+    .options {
+        display: flex;
+        gap: 30px;
+        flex-direction: column;
+
+    }
+
+    .logout {
+        padding-bottom: 30px;
+
+    }
+
+}

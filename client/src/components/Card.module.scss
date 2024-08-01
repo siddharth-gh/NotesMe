@@ -1,0 +1,83 @@
+.card {
+    background-color: #FBEB9566;
+    box-sizing: border-box;
+    margin: 15px 20px;
+    padding: 22px;
+    height: 35vh;
+    width: 15vw;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+    overflow-wrap: break-word;
+    /* Allows long words to break and wrap */
+    word-break: break-word;
+    // box-sizing: border-box;
+    color: black;
+
+    .textarea {
+        overflow: auto;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    textarea {
+        display: block;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        font-weight: 500;
+        font-size: 18px;
+        resize: none;
+    }
+
+    button {
+        background-color: #00000011;
+        border: none;
+        border-radius: 8px;
+        padding: 2px;
+    }
+
+    .description {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    svg {
+        cursor: pointer;
+        margin-right: 20px;
+    }
+
+    .date {
+        font-size: 12px;
+        color: rgb(51, 51, 51);
+    }
+}
+
+
+/* For WebKit browsers (e.g., Chrome, Safari) */
+.textarea::-webkit-scrollbar {
+    display: none;
+    /* Hides the scrollbar */
+}
+
+.description::-webkit-scrollbar {
+    display: none;
+    /* Hides the scrollbar */
+}
+
+/* For Firefox */
+.card {
+    scrollbar-width: none;
+    /* Hides the scrollbar */
+}
+
+// /* For Edge and IE */
+// .card {
+//     -ms-overflow-style: none;
+//     /* Hides the scrollbar */
+// }

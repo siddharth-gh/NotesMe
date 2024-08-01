@@ -1,0 +1,30 @@
+.main {
+    display: flex;
+    overflow-x: hidden;
+    // background-color: #343539;
+    // color: white;
+    transition: all 5s;
+
+    .dark {
+        background-color: #343539;
+        color: white;
+        min-height: 100vh;
+        transition: all 0.5s;
+    }
+
+    .light {
+        background-color: white;
+        color: black;
+        min-height: 100vh;
+        transition: all 0.5s;
+    }
+}
+
+.container {
+    display: flex;
+    width: 87vw;
+    flex-wrap: wrap;
+    margin: 30px 130px;
+    // padding: 30px;
+    // background-color: red;
+}

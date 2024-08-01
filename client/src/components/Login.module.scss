@@ -1,0 +1,144 @@
+:root {
+    --semantic-red: #F7685C;
+    --semantic-green: #30C58D;
+    --grey: #A8A8B3;
+}
+
+.container {
+    padding: 0 130px;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+
+    .left {
+        width: 50%;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        text-align: left;
+
+        .heading {
+            padding: 0 90px;
+            font-size: 40px;
+            font-weight: 700;
+            color: black;
+        }
+
+        p {
+            padding: 0 90px;
+            color: var(--grey);
+        }
+    }
+
+    .right {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            margin-left: 5px;
+        }
+
+        .logo {
+            width: 277px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 30px;
+            margin-bottom: 30px;
+
+            strong {
+                font-size: 50px;
+            }
+
+            svg {
+                height: 60px;
+                width: 60px;
+            }
+        }
+
+        button {
+            width: 277px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--semantic-red);
+            padding: 8px 0;
+            color: white;
+            margin-bottom: 20px;
+            gap: 5px;
+
+            svg {
+                margin-right: 10px;
+                height: 25px;
+                width: 25px;
+            }
+        }
+
+        .separator {
+            color: var(--grey);
+        }
+
+        .separator::before,
+        .separator::after {
+            content: "";
+            display: inline-block;
+            background-color: var(--grey);
+            vertical-align: middle;
+            height: 0.5px;
+            width: 83px;
+            margin: 0 20px;
+        }
+
+        .login {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            input {
+                border: 1px solid var(--grey);
+                padding: 8px;
+                border-radius: 8px;
+                outline: none;
+                width: 100%;
+            }
+
+            .password {
+                display: flex;
+                flex-flow: row-reverse;
+                align-items: center;
+
+
+            }
+
+            .togglePassword {
+                position: absolute;
+                margin-right: 10px;
+                cursor: pointer;
+                font-size: 22px;
+            }
+
+            button {
+                width: 277px;
+                border-radius: 8px;
+                border: none;
+                background-color: var(--semantic-green);
+                padding: 5px 0;
+                color: white;
+                margin-bottom: 20px;
+
+                svg {
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+        }
+    }
+
+
+}
