@@ -29,9 +29,7 @@ export default function Login(props) {
             })
 
             const user = await response.json();
-            // props.setName(user.name);
             localStorage.setItem('token', user.token)
-            console.log(localStorage.getItem('token'))
             localStorage.setItem('name', user.name)
             navigate('/');
         }

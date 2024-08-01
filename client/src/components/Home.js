@@ -29,11 +29,12 @@ export default function Home(props) {
     }
 
     const getNotes = async () => {
+        const token = localStorage.getItem('token')
         const notes = await fetch(`${url}/api/notes/getnotes`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',  // Specify the content type
-                'auth-token': localStorage.getItem('token')
+                'auth-token': token
             }
         })
         setNotes(await notes.json());
