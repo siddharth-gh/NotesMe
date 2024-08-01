@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import styles from './Home.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { url } from '../assets';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home(props) {
 
@@ -22,9 +24,11 @@ export default function Home(props) {
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark')
+            toast.success("Dark mode enabled")
         }
         else {
             setTheme('light')
+            toast.success("Dark mode disabled")
         }
     }
 
@@ -57,6 +61,7 @@ export default function Home(props) {
             <main className={theme === 'light' ? styles.light : styles.dark}>
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
                 <Greeting name={props.name} />
+                <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} />
                 <div className={styles.container}>
                     {adding && <NewCard setAdding={setAdding} setNotes={setNotes} />}
                     {notes.slice().reverse().map((element) => {

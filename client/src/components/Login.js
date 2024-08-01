@@ -3,6 +3,9 @@ import styles from './Login.module.scss'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { url } from '../assets'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export default function Login(props) {
@@ -15,7 +18,6 @@ export default function Login(props) {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-
         try {
             const response = await fetch(`${url}/api/auth/login`, {
                 method: 'POST',
@@ -29,12 +31,23 @@ export default function Login(props) {
             })
 
             const user = await response.json();
+
+            if (!response.ok) {
+                // console.error('Error response:', user); // Log the error response
+
+                toast.danger(user.alert)
+                return;
+            }
+
             localStorage.setItem('token', user.token)
             localStorage.setItem('name', user.name)
-            navigate('/');
+            toast.success("Success, loggin you in...")
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
         }
         catch (error) {
-            console.error(error.message)
+            toast.error('An unexpected error occurred. Please try again later.');
         }
     }
 
@@ -53,6 +66,7 @@ export default function Login(props) {
         }
     }
 
+
     return (
         <div className={styles.container} >
             <div className={styles.left}>
@@ -60,6 +74,7 @@ export default function Login(props) {
                 <p className={styles.heading}>Keep life Simple</p>
                 <p>Store all your notes in a simple and intuitive app that helps you enjoy what is most important in life.</p>
             </div>
+            <ToastContainer />
             <div className={styles.right}>
                 <div className={styles.logo}>
                     <Icon icon="line-md:edit" /><span><strong>Notes.</strong>me</span>
@@ -74,6 +89,7 @@ export default function Login(props) {
                     </div>
                     <button type="submit"><Icon icon="material-symbols:login" />Login</button>
                 </form>
+
                 <p>Don't have an account? <span><Link to='/signup'>Signup</Link></span></p>
             </div>
         </div>

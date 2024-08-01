@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Icon } from '@iconify/react';
 import styles from './Navbar.module.scss'
 
@@ -14,8 +14,7 @@ function Navbar(props) {
                 <input type="text" placeholder=' Search Notes' className={theme === 'light' ? {} : styles.inputDark} />
             </div>
             <div className={styles.darkmode} onClick={toggleTheme}>
-                {/* <Icon icon="icon-park-outline:dark-mode" onClick={toggleTheme} /> */}
-                {theme === 'light' ? <img src='toDark.png' style={{ height: "30px" }} /> : <img src='toLight.png' style={{ height: "30px", filter: "invert(1)" }} />}
+                {theme === 'light' ? <img src='toDark.png' style={{ height: "30px" }} alt="themeToggler" /> : <img src='toLight.png' style={{ height: "30px", filter: "invert(1)" }} alt="themeToggler" />}
             </div>
         </div>
     )

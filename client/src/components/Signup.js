@@ -2,7 +2,9 @@ import React, { useRef } from 'react'
 import styles from './Login.module.scss'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
-import { url } from '../assets'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { url } from '../assets';
 
 
 export default function Login(props) {
@@ -14,23 +16,35 @@ export default function Login(props) {
 
     const handleSignup = async (event) => {
         event.preventDefault();
-        const response = await fetch(`${url}/api/auth/createuser`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'  // Specify the content type
-            },
-            body: JSON.stringify({
-                name: nameRef.current.value,
-                email: emailRef.current.value,
-                password: passRef.current.value
-            })
-        })
-        const user = await response.json();
-        // props.setName(user.userData.name);
-        localStorage.setItem('token', user.token)
-        localStorage.setItem('name', user.userData.name)
 
-        navigate('/');
+        try {
+            const response = await fetch(`${url}/api/auth/createuser`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'  // Specify the content type
+                },
+                body: JSON.stringify({
+                    name: nameRef.current.value,
+                    email: emailRef.current.value,
+                    password: passRef.current.value
+                })
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+                toast.error(errorMessage.alert)
+                return;
+            }
+
+            const user = await response.json();
+            localStorage.setItem('token', user.token)
+            localStorage.setItem('name', user.userData.name)
+
+            navigate('/');
+        }
+        catch (error) {
+            toast("Error signing up")
+        }
     }
 
     return (
@@ -40,6 +54,7 @@ export default function Login(props) {
                 <p className={styles.heading}>Keep life Simple</p>
                 <p>Store all your notes in a simple and intuitive app that helps you enjoy what is most important in life.</p>
             </div>
+            <ToastContainer />
             <div className={styles.right}>
                 <div className={styles.logo}>
                     <Icon icon="line-md:edit" /><span><strong>Notes.</strong>me</span>

@@ -1,10 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './Card.module.scss'
 import { Icon } from '@iconify/react'
 import { url } from '../assets'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Card(props) {
 
+    // eslint-disable-next-line
     const { noteId, setNotes, notes } = props
     const [editing, setEditing] = useState(false);
 
@@ -19,9 +22,10 @@ function Card(props) {
 
         if (response.ok) {
             setNotes(notes => notes.filter(note => note._id !== noteId))
+            toast.success("Note deleted successfully")
         }
         else {
-            console.log("Notes deleting failed")
+            toast.error("Failed to delete note")
         }
 
     }
@@ -43,14 +47,20 @@ function Card(props) {
             })
         })
 
-        // Update the specific note in the local state
-        // Creates a new object using the spread operator { ...note }, which copies all properties of the note.
-        // Then, it overrides the description property with the new value.
-        // This results in a new note object with the updated description.
 
-        setNotes((notes) => {
-            return notes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: new Date().toUTCString() } : note)
-        })
+        if (response.ok) {
+            // Update the specific note in the local state
+            // Creates a new object using the spread operator { ...note }, which copies all properties of the note.
+            // Then, it overrides the description property with the new value.
+            // This results in a new note object with the updated description.
+            setNotes((notes) => {
+                return notes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: new Date().toUTCString() } : note)
+            })
+            toast.success("Note updated successfully")
+        }
+        else {
+            toast.error("Failed to update note")
+        }
         setEditing(false);
     }
 

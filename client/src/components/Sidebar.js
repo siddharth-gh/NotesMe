@@ -2,6 +2,8 @@ import React from 'react'
 import { Icon } from '@iconify/react';
 import styles from './Sidebar.module.scss'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 export default function Sidebar(props) {
 
@@ -14,7 +16,11 @@ export default function Sidebar(props) {
 
     const handleLogout = () => {
         localStorage.setItem('token', "");
-        navigate('/login')
+        toast("Loggin out...")
+        setTimeout(() => {
+
+            navigate('/login')
+        }, 1000);
     }
 
 

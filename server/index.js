@@ -20,6 +20,6 @@ app.use('/api/notes', require('./routes/notes.js'))
 const PORT = process.env.PORT || 8080
 
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);
 });
