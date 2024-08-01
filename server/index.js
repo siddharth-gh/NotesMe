@@ -6,11 +6,7 @@ const user = require('./models/user')
 app.use(express.json());
 const cors = require('cors');
 
-app.use(cors({
-    origin: '*', // Adjust this to your specific frontend URL in production
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type,auth-token'
-}));
+app.use(cors());
 
 connectToDB();
 
