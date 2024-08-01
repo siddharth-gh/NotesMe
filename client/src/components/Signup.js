@@ -40,7 +40,11 @@ export default function Login(props) {
             localStorage.setItem('token', user.token)
             localStorage.setItem('name', user.userData.name)
 
-            navigate('/');
+            toast.success("Account created successfully")
+            toast.success("Loggin you in...")
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
         }
         catch (error) {
             toast("Error signing up")

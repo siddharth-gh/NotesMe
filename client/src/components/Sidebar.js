@@ -16,7 +16,7 @@ export default function Sidebar(props) {
 
     const handleLogout = () => {
         localStorage.setItem('token', "");
-        toast("Loggin out...")
+        toast.success("Loggin out...")
         setTimeout(() => {
 
             navigate('/login')
