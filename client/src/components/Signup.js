@@ -2,6 +2,8 @@ import React, { useRef } from 'react'
 import styles from './Login.module.scss'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
+import { url } from '../assets'
+
 
 export default function Login(props) {
 
