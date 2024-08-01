@@ -1,1 +1,1 @@
-export const url = "https://notesme-backend-10nf.onrender.com"
+export const url = "https://notesme-backend-ogr1.onrender.com"
