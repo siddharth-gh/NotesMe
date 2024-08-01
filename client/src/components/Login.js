@@ -33,9 +33,7 @@ export default function Login(props) {
             const user = await response.json();
 
             if (!response.ok) {
-                // console.error('Error response:', user); // Log the error response
-
-                toast.danger(user.alert)
+                toast.error(user.alert)
                 return;
             }
 
