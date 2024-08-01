@@ -12,7 +12,7 @@ export default function Login(props) {
 
     const handleSignup = async (event) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:8000/api/auth/createuser', {
+        const response = await fetch(`${url}/api/auth/createuser`, {
             method: 'POSt',
             headers: {
                 'Content-Type': 'application/json'  // Specify the content type
