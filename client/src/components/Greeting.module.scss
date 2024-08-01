@@ -10,3 +10,17 @@
         margin-top: 10px;
     }
 }
+
+@media (max-width: 600px) {
+    .greeting {
+        font-size: 25px;
+        width: 87vw;
+        margin: 20px 13vw;
+
+        p {
+            color: grey;
+            font-size: 15px;
+            margin-top: 1px;
+        }
+    }
+}

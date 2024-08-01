@@ -50,3 +50,59 @@
 
 
 }
+
+@media (max-width: 600px) {
+    .container {
+        width: 89vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // background-color: red;
+        margin-top: 10px;
+        margin-left: 13vw;
+        // background-color: red;
+
+        .search {
+            display: flex;
+            align-items: center;
+            // background-color: red;
+
+            input {
+                width: 65vw;
+                border-radius: 20px;
+                height: 30px;
+                padding: 20px 15px;
+                border: none;
+                outline: none;
+                background-color: rgba(200, 200, 200, 0.308);
+            }
+
+            .inputDark {
+                color: white;
+            }
+
+            .inputDark::placeholder {
+                color: white;
+            }
+
+            svg {
+                height: 28px;
+                width: 28px;
+                margin-right: 5px;
+                cursor: pointer;
+            }
+
+        }
+
+        .searchDark {
+            color: white;
+        }
+
+        .darkmode {
+            cursor: pointer;
+            margin-right: 18px;
+        }
+
+
+    }
+}

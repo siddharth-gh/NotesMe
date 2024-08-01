@@ -67,7 +67,7 @@ function Card(props) {
                 <div className={styles.textarea}>
                     {editing ?
                         <>
-                            <textarea rows={8} value={value} onChange={onChange} />
+                            <textarea rows={8} value={value} onChange={onChange} spellCheck={false} />
                             <button onClick={() => updateNote(noteId)}>Update</button>
                         </>
                         :

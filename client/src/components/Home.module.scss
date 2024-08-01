@@ -3,7 +3,6 @@
     overflow-x: hidden;
     // background-color: #343539;
     // color: white;
-    transition: all 5s;
 
     .dark {
         background-color: #343539;
@@ -22,9 +21,43 @@
 
 .container {
     display: flex;
-    width: 87vw;
+    width: 89vw;
     flex-wrap: wrap;
     margin: 30px 130px;
     // padding: 30px;
     // background-color: red;
+}
+
+@media (max-width: 600px) {
+    .main {
+        display: flex;
+        // overflow-x: hidden;
+        // background-color: #343539;
+        // color: white;
+
+        .dark {
+            background-color: #343539;
+            color: white;
+            min-height: 100vh;
+            width: 100vw;
+            transition: all 0.5s;
+        }
+
+        .light {
+            background-color: white;
+            color: black;
+            min-height: 100vh;
+            width: 100vw;
+            transition: all 0.5s;
+        }
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        margin: 0px 13vw;
+        // padding: 30px;
+        // background-color: red;
+    }
 }
