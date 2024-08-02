@@ -24,11 +24,15 @@ export default function Home(props) {
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark')
-            toast.success("Dark mode enabled")
+            toast.success("Dark mode enabled", {
+                theme: 'dark'
+            })
         }
         else {
             setTheme('light')
-            toast.success("Dark mode disabled")
+            toast.success("Dark mode disabled", {
+                theme: 'light'
+            })
         }
     }
 
@@ -42,6 +46,9 @@ export default function Home(props) {
         })
         setNotes(await notes.json());
     }
+
+
+
 
 
 
@@ -61,7 +68,7 @@ export default function Home(props) {
             <main className={theme === 'light' ? styles.light : styles.dark}>
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
                 <Greeting name={props.name} />
-                <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} />
+                <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} theme={theme} />
                 <div className={styles.container}>
                     {adding && <NewCard setAdding={setAdding} setNotes={setNotes} />}
                     {notes.slice().reverse().map((element) => {
