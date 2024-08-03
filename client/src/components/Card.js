@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Card(props) {
 
+    const { bookmark } = props
+
     // eslint-disable-next-line
     const { noteId, setNotes, notes } = props
     const [editing, setEditing] = useState(false);
@@ -64,6 +66,38 @@ function Card(props) {
         setEditing(false);
     }
 
+
+    //Method to add bookmark to a note
+    const addBookmark = async (noteId) => {
+        const response = await fetch(`${url}/api/notes/addbookmark/${noteId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',  // Specify the content type
+                'auth-token': localStorage.getItem('token')
+            }
+        })
+
+
+        if (response.ok) {
+            // Update the specific note in the local state
+            // Creates a new object using the spread operator { ...note }, which copies all properties of the note.
+            // Then, it overrides the description property with the new value.
+            // This results in a new note object with the updated description.
+            setNotes((notes) => {
+                return notes.map(note => note._id === noteId ? { ...note, bookmark: !bookmark } : note)
+            })
+            if (bookmark) {
+                toast.success("Bookmark removed");
+            }
+            else {
+                toast.success("Bookmark added")
+            }
+        }
+        else {
+            toast.error("Failed to add bookmark")
+        }
+    }
+
     const [value, setValue] = useState(props.description);
 
     const onChange = (event) => {
@@ -71,9 +105,17 @@ function Card(props) {
     }
 
 
+
     return (
         <>
             <div className={styles.card} style={{ backgroundColor: props.theme }}>
+                <span className={styles.bookmark} onClick={() => addBookmark(noteId)}>
+                    {props.bookmark ?
+                        <Icon icon="oi:bookmark" className={props.bookmark ? styles.remove_bookmark : styles.remove_bookmark_unactive} />
+                        :
+                        <Icon icon="fontisto:bookmark" className={props.bookmark ? styles.add_bookmark : styles.add_bookmark_unactive} />
+                    }
+                </span>
                 <div className={styles.textarea}>
                     {editing ?
                         <>
@@ -81,8 +123,11 @@ function Card(props) {
                             <button onClick={() => updateNote(noteId)}>Update</button>
                         </>
                         :
-                        <p className={styles.description}>{props.description}
-                        </p>
+                        <>
+                            <p className={styles.description}>
+                                {props.description}
+                            </p>
+                        </>
                     }
                 </div>
                 <p className={styles.date}>{props.date}</p>

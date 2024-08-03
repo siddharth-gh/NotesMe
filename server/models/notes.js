@@ -11,6 +11,10 @@ const noteSchema = new mongoose.Schema(
         theme: {
             type: String
         },
+        bookmark: {
+            type: Boolean,
+            default: false
+        },
         user: {
             type: Schema.Types.ObjectId,
             ref: 'user'

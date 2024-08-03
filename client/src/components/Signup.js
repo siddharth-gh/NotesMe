@@ -13,40 +13,74 @@ export default function Login(props) {
     const nameRef = useRef(null);
     const emailRef = useRef(null)
     const passRef = useRef(null)
+    const confPassRef = useRef(null)
 
     const handleSignup = async (event) => {
         event.preventDefault();
 
-        try {
-            const response = await fetch(`${url}/api/auth/createuser`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'  // Specify the content type
-                },
-                body: JSON.stringify({
-                    name: nameRef.current.value,
-                    email: emailRef.current.value,
-                    password: passRef.current.value
-                })
-            });
+        if (passRef.current.value === confPassRef.current.value) {
+            try {
+                const response = await fetch(`${url}/api/auth/createuser`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'  // Specify the content type
+                    },
+                    body: JSON.stringify({
+                        name: nameRef.current.value,
+                        email: emailRef.current.value,
+                        password: passRef.current.value
+                    })
+                });
 
-            const user = await response.json();
+                const user = await response.json();
 
-            if (!response.ok) {
-                toast.error(user.alert)
-                return;
+                if (!response.ok) {
+                    toast.error(user.alert)
+                    return;
+                }
+
+                localStorage.setItem('token', user.token)
+                localStorage.setItem('name', user.userData.name)
+
+                toast.success("Account created successfully\nLoggin you in...")
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000);
             }
-
-            localStorage.setItem('token', user.token)
-            localStorage.setItem('name', user.userData.name)
-
-            toast.success("Account created successfully\nLoggin you in...")
-            setTimeout(() => {
-                navigate('/');
-            }, 1000);
+            catch (error) {
+                toast.error("Error signing up")
+            }
         }
-        catch (error) {
-            toast("Error signing up")
+        else {
+            toast.error("Passwords don't match!")
+        }
+    }
+
+    const togglePassword = () => {
+        const passwordInput = document.getElementById('passwordInput');
+        const toggler = document.getElementById('togglePassword');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggler.textContent = "🙈"
+        }
+        else {
+            passwordInput.type = 'password';
+            toggler.textContent = "👁️"
+        }
+    }
+
+    const toggleConfirmPassword = () => {
+        const passwordInput = document.getElementById('confirmPasswordInput');
+        const toggler = document.getElementById('toggleConfirmPassword');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggler.textContent = "🙈"
+        }
+        else {
+            passwordInput.type = 'password';
+            toggler.textContent = "👁️"
         }
     }
 
@@ -67,7 +101,14 @@ export default function Login(props) {
                 <form className={styles.login} onSubmit={handleSignup}>
                     <input type="text" placeholder='Enter your name' required minLength={3} ref={nameRef} />
                     <input type="email" placeholder='Enter email address' required ref={emailRef} />
-                    <input type="password" placeholder='Enter your password' required minLength={8} ref={passRef} />
+                    <div className={styles.password}>
+                        <input type="password" placeholder='Enter your password' required minLength={8} ref={passRef} id='passwordInput' />
+                        <span className={styles.togglePassword} onClick={togglePassword} id='togglePassword'>👁️</span>
+                    </div>
+                    <div className={styles.password}>
+                        <input type="password" placeholder='Confirm password' required minLength={8} ref={confPassRef} id='confirmPasswordInput' />
+                        <span className={styles.togglePassword} onClick={toggleConfirmPassword} id='toggleConfirmPassword'>👁️</span>
+                    </div>
                     <button type='submit'><Icon icon="material-symbols:login" />Signup</button>
                 </form>
                 <p>Already have an account? <span><Link to='/login'>Login</Link></span></p>

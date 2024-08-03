@@ -65,27 +65,36 @@ export default function Home(props) {
             setNotes(originalNotes);
         }
         else {
-            setNotes((originalNotes) => originalNotes.filter(note => note.description.includes(event.target.value.toLowerCase())));
+            setNotes((notes) => notes.filter(note => note.description.includes(event.target.value.toLowerCase())));
         }
     }
 
     const clearSearch = () => {
         setSearch("")
         setNotes(originalNotes);
+
+    }
+
+    const allNotes = () => {
+        setNotes(originalNotes)
+    }
+
+    const pinnedNotes = () => {
+        setNotes(((notes) => notes.filter(note => note.bookmark === true)))
     }
 
     return (
         <div className={styles.main}>
-            <Sidebar notes={notes} setNotes={setNotes} setAdding={setAdding} />
+            <Sidebar notes={notes} setNotes={setNotes} setAdding={setAdding} allNotes={allNotes} pinnedNotes={pinnedNotes} />
             <main className={theme === 'light' ? styles.light : styles.dark}>
                 <Navbar toggleTheme={toggleTheme} theme={theme} handleSearch={handleSearch} search={search} clearSearch={clearSearch} />
                 <Greeting name={props.name} />
                 <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} theme={theme} />
                 <div className={styles.container}>
                     {adding && <NewCard setAdding={setAdding} setNotes={setNotes} />}
-                    {notes.slice().reverse().map((element) => {
-                        return <Card key={element._id} noteId={element._id} description={element.description} theme={element.theme} date={element.updatedAt} setNotes={setNotes} notes={notes} setAdding={setAdding} adding={adding} />
-                    })}
+                    {notes.length > 0 || adding ? notes.slice().reverse().map((element) => {
+                        return <Card key={element._id} noteId={element._id} description={element.description} theme={element.theme} date={element.updatedAt} bookmark={element.bookmark} setNotes={setNotes} notes={notes} setAdding={setAdding} adding={adding} />
+                    }) : <p>No notes to display</p>}
                 </div>
             </main>
         </div>

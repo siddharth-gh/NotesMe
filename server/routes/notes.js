@@ -36,6 +36,28 @@ router.put('/updatenote/:id', async (req, res) => {
     })
 })
 
+//API to bookmark a note
+router.put('/addbookmark/:id', fetchUser, async (req, res) => {
+    const id = req.params.id
+    const note = await notes.findById(id)
+    const bookmarkedNote = await notes.findByIdAndUpdate(id, { bookmark: !note.bookmark }, { new: true })
+    res.status(200).json({
+        message: "Note bookmarked",
+        bookmarkedNote
+    })
+})
+
+// //API to bookmark a note
+// router.put('/deletebookmark/:id', fetchUser, async (req, res) => {
+//     const id = req.params.id
+//     const deletedNote = await notes.findByIdAndUpdate(id, { bookmark:  })
+//     res.status(200).json({
+//         message: "Note bookmarked",
+//         deletedNote
+//     })
+// })
+
+
 //API to delete a note, auth required
 router.delete('/deletenote/:id', fetchUser, async (req, res) => {
     const id = req.params.id
@@ -45,6 +67,7 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
         deletedNote
     })
 })
+
 
 
 module.exports = router

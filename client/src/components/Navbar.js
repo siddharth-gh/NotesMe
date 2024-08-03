@@ -21,9 +21,14 @@ function Navbar(props) {
                 </div>
             </div>
             <div className={styles.darkmode} onClick={toggleTheme}>
-                {theme === 'light' ? <img src='toDark.png' style={{ height: "30px" }} alt="themeToggler" /> : <img src='toLight.png' style={{ height: "30px", filter: "invert(1)" }} alt="themeToggler" />}
+                {theme === 'light' ?
+                    <img src='toDark.png' style={{ height: "30px" }} alt="themeToggler" className={theme === 'light' ? styles.remove_bookmark : styles.remove_bookmark_unactive} />
+                    :
+                    <img src='toLight.png' style={{ height: "30px", filter: "invert(1)" }} alt="themeToggler" className={theme === 'light' ? styles.add_bookmark : styles.add_bookmark_unactive} />
+                }
             </div>
         </div>
+
     )
 }
 

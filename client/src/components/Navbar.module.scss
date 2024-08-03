@@ -55,6 +55,30 @@
     .darkmode {
         cursor: pointer;
         margin-right: 46px;
+
+        .remove_bookmark {
+            // transform: rotateY(180deg);
+            transform: rotateZ(180deg);
+            transition: all 1s ease;
+        }
+
+        .remove_bookmark_unactive {
+            // transform: rotateY(360deg);
+            transform: rotateZ(360deg);
+            transition: all 1s ease;
+        }
+
+        .add_bookmark {
+            // transform: rotateY(180deg);
+            transform: rotateZ(180deg);
+            transition: all 1s ease;
+        }
+
+        .add_bookmark_unactive {
+            // transform: rotateY(360deg);
+            transform: rotateZ(360deg);
+            transition: all 1s ease;
+        }
     }
 
 
@@ -121,8 +145,10 @@
         .darkmode {
             cursor: pointer;
             margin-right: 18px;
+
+
+
+
         }
-
-
     }
 }

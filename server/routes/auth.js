@@ -51,6 +51,7 @@ router.post('/login', async (req, res) => {
                 name: userData.name,
                 token
             })
+            console.log("A user logged in...")
         }
         else {
             res.status(404).json({

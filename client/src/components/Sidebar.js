@@ -5,13 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
+
 export default function Sidebar(props) {
 
     const navigate = useNavigate()
 
+    const { setAdding, allNotes, pinnedNotes } = props
+
 
     const newNote = () => {
-        props.setAdding(true);
+        setAdding(true);
     }
 
     const handleLogout = () => {
@@ -29,13 +32,16 @@ export default function Sidebar(props) {
             <div className={styles.sidebar} >
                 <div className={styles.logo}><Icon icon="line-md:edit" /></div>
                 <div className={styles.options}>
-                    <Icon icon="material-symbols:home" />
+
+                    <Icon icon="material-symbols:home" onClick={allNotes} data-mdb-ripple-init />
+                    <Icon icon="mdi:tag" onClick={pinnedNotes} />
                     <Icon icon="charm:plus" onClick={newNote} />
-                </div>
+
+                </div >
                 <div className={styles.logout} onClick={handleLogout}>
                     <Icon icon="material-symbols:logout" />
                 </div>
-            </div >
+            </div>
         </>
     )
 }
