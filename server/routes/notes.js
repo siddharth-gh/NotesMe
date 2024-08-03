@@ -29,7 +29,6 @@ router.post('/addnote', fetchUser, async (req, res) => {
 router.put('/updatenote/:id', async (req, res) => {
     const id = req.params.id
     const newData = req.body.description
-    // console.log(id, data)
     const updatedNote = await notes.findByIdAndUpdate(id, { description: newData, updatedAt: new Date().toUTCString() })
     res.status(200).json({
         message: "Note updated successfully",

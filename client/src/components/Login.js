@@ -45,7 +45,7 @@ export default function Login(props) {
             }, 1000);
         }
         catch (error) {
-            toast.error('An unexpected error occurred. Please try again later.');
+            toast.error("Some error occured: " + error.message);
         }
     }
 

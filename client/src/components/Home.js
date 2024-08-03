@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import styles from './Home.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { url } from '../assets';
-import { ToastContainer, toast, Zoom } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home(props) {
@@ -20,35 +20,31 @@ export default function Home(props) {
     const [notes, setNotes] = useState([]);
     const [adding, setAdding] = useState(false);
     const [theme, setTheme] = useState('light');
+    const [originalNotes, setOriginalNotes] = useState(notes)
+    const [search, setSearch] = useState("")
+
 
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark')
-            toast.success("Dark mode enabled", {
-                theme: 'dark'
-            })
         }
         else {
             setTheme('light')
-            toast.success("Dark mode disabled", {
-                theme: 'light'
-            })
         }
     }
 
     const getNotes = async () => {
-        const notes = await fetch(`${url}/api/notes/getnotes`, {
+        const notesData = await fetch(`${url}/api/notes/getnotes`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',  // Specify the content type
                 'auth-token': localStorage.getItem('token')
             }
         })
-        setNotes(await notes.json());
+        const notes = await notesData.json();
+        setNotes(notes);
+        setOriginalNotes(notes)
     }
-
-
-
 
 
 
@@ -62,11 +58,27 @@ export default function Home(props) {
         // eslint-disable-next-line
     }, [])
 
+
+    const handleSearch = (event) => {
+        setSearch(event.target.value)
+        if (event.target.value === "") {
+            setNotes(originalNotes);
+        }
+        else {
+            setNotes((originalNotes) => originalNotes.filter(note => note.description.includes(event.target.value.toLowerCase())));
+        }
+    }
+
+    const clearSearch = () => {
+        setSearch("")
+        setNotes(originalNotes);
+    }
+
     return (
         <div className={styles.main}>
             <Sidebar notes={notes} setNotes={setNotes} setAdding={setAdding} />
             <main className={theme === 'light' ? styles.light : styles.dark}>
-                <Navbar toggleTheme={toggleTheme} theme={theme} />
+                <Navbar toggleTheme={toggleTheme} theme={theme} handleSearch={handleSearch} search={search} clearSearch={clearSearch} />
                 <Greeting name={props.name} />
                 <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} theme={theme} />
                 <div className={styles.container}>
