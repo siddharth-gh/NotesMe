@@ -41,8 +41,9 @@ router.put('/addbookmark/:id', fetchUser, async (req, res) => {
     const id = req.params.id
     const note = await notes.findById(id)
     const bookmarkedNote = await notes.findByIdAndUpdate(id, { bookmark: !note.bookmark }, { new: true })
+    const status = bookmarkedNote.bookmark
     res.status(200).json({
-        message: "Note bookmarked",
+        message: status ? "Note bookmarked" : "Bookmark removed",
         bookmarkedNote
     })
 })

@@ -34,7 +34,6 @@ router.post('/createuser', async (req, res) => {
 
 //Login APi using POST method:  Auth not required
 router.post('/login', async (req, res) => {
-    console.log("using login api")
     try {
         const userData = await user.findOne({ email: req.body.email })
 
