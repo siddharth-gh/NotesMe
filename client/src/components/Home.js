@@ -65,7 +65,7 @@ export default function Home(props) {
             setNotes(originalNotes);
         }
         else {
-            setNotes((notes) => notes.filter(note => note.description.includes(event.target.value.toLowerCase())));
+            setNotes((notes) => notes.filter(note => note.description.toLowerCase().includes(event.target.value.toLowerCase())));
         }
     }
 
