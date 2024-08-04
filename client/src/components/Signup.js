@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './Login.module.scss'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -18,43 +18,46 @@ export default function Login(props) {
     const handleSignup = async (event) => {
         event.preventDefault();
 
-        if (passRef.current.value === confPassRef.current.value) {
-            try {
-                const response = await fetch(`${url}/api/auth/createuser`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'  // Specify the content type
-                    },
-                    body: JSON.stringify({
-                        name: nameRef.current.value,
-                        email: emailRef.current.value,
-                        password: passRef.current.value
-                    })
-                });
+        // if (passRef.current.value === confPassRef.current.value) {
+        try {
+            const response = await fetch(`${url}/api/auth/createuser`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'  // Specify the content type
+                },
+                body: JSON.stringify({
+                    name: nameRef.current.value,
+                    email: emailRef.current.value,
+                    password: passRef.current.value
+                })
+            });
 
-                const user = await response.json();
+            const user = await response.json();
 
-                if (!response.ok) {
-                    toast.error(user.alert)
-                    return;
-                }
-
-                localStorage.setItem('token', user.token)
-                localStorage.setItem('name', user.userData.name)
-
-                toast.success("Account created successfully\nLoggin you in...")
-                setTimeout(() => {
-                    navigate('/');
-                }, 1000);
+            if (!response.ok) {
+                toast.error(user.alert)
+                return;
             }
-            catch (error) {
-                toast.error("Error signing up")
-            }
+
+            localStorage.setItem('token', user.token)
+            localStorage.setItem('name', user.userData.name)
+
+            toast.success("Account created successfully\nLoggin you in...")
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
         }
-        else {
-            toast.error("Passwords don't match!")
+        catch (error) {
+            toast.error("Error signing up")
         }
+        // }
+        // else {
+        //     toast.error("Passwords don't match!")
+        // }
     }
+
+    const [hidden, setHidden] = useState(true)
+
 
     const togglePassword = () => {
         const passwordInput = document.getElementById('passwordInput');
@@ -62,27 +65,15 @@ export default function Login(props) {
 
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
-            toggler.textContent = "🙈"
+            setHidden(false)
         }
         else {
             passwordInput.type = 'password';
-            toggler.textContent = "👁️"
+            setHidden(true)
         }
     }
 
-    const toggleConfirmPassword = () => {
-        const passwordInput = document.getElementById('confirmPasswordInput');
-        const toggler = document.getElementById('toggleConfirmPassword');
 
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            toggler.textContent = "🙈"
-        }
-        else {
-            passwordInput.type = 'password';
-            toggler.textContent = "👁️"
-        }
-    }
 
     return (
         <div className={styles.container} >
@@ -103,11 +94,12 @@ export default function Login(props) {
                     <input type="email" placeholder='Enter email address' required ref={emailRef} />
                     <div className={styles.password}>
                         <input type="password" placeholder='Enter your password' required minLength={8} ref={passRef} id='passwordInput' />
-                        <span className={styles.togglePassword} onClick={togglePassword} id='togglePassword'>👁️</span>
-                    </div>
-                    <div className={styles.password}>
-                        <input type="password" placeholder='Confirm password' required minLength={8} ref={confPassRef} id='confirmPasswordInput' />
-                        <span className={styles.togglePassword} onClick={toggleConfirmPassword} id='toggleConfirmPassword'>👁️</span>
+                        <span className={styles.togglePassword} onClick={togglePassword} id='togglePassword'>
+                            {hidden ?
+                                <Icon icon="mdi:eye" />
+                                :
+                                <Icon icon="ph:eye-closed-bold" />}
+                        </span>
                     </div>
                     <button type='submit'><Icon icon="material-symbols:login" />Signup</button>
                 </form>

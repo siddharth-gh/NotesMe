@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './Login.module.scss'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -49,6 +49,8 @@ export default function Login(props) {
         }
     }
 
+    const [hidden, setHidden] = useState(true)
+
 
     const togglePassword = () => {
         const passwordInput = document.getElementById('passwordInput');
@@ -56,11 +58,13 @@ export default function Login(props) {
 
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
-            toggler.textContent = "🙈"
+            // toggler.textContent = "🙈"
+            setHidden(false)
         }
         else {
             passwordInput.type = 'password';
-            toggler.textContent = "👁️"
+            // toggler.textContent = "👁️"
+            setHidden(true)
         }
     }
 
@@ -83,7 +87,12 @@ export default function Login(props) {
                     <input type="email" placeholder='Enter email address' required ref={emailRef} />
                     <div className={styles.password}>
                         <input type="password" placeholder='Enter your password' required minLength={8} ref={passRef} id='passwordInput' />
-                        <span className={styles.togglePassword} onClick={togglePassword} id='togglePassword'>👁️</span>
+                        <span className={styles.togglePassword} onClick={togglePassword} id='togglePassword'>
+                            {hidden ?
+                                <Icon icon="mdi:eye" />
+                                :
+                                <Icon icon="ph:eye-closed-bold" />}
+                        </span>
                     </div>
                     <button type="submit"><Icon icon="material-symbols:login" />Login</button>
                 </form>

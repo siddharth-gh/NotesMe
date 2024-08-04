@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { url } from '../assets';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from './Loading';
 
 export default function Home(props) {
 
@@ -22,6 +23,7 @@ export default function Home(props) {
     const [theme, setTheme] = useState('light');
     const [originalNotes, setOriginalNotes] = useState(notes)
     const [search, setSearch] = useState("")
+    const [loading, setLoading] = useState(true)
 
 
     const toggleTheme = () => {
@@ -34,6 +36,7 @@ export default function Home(props) {
     }
 
     const getNotes = async () => {
+        setLoading(true)
         const notesData = await fetch(`${url}/api/notes/getnotes`, {
             method: 'GET',
             headers: {
@@ -44,6 +47,7 @@ export default function Home(props) {
         const notes = await notesData.json();
         setNotes(notes);
         setOriginalNotes(notes)
+        setLoading(false)
     }
 
 
@@ -90,12 +94,15 @@ export default function Home(props) {
                 <Navbar toggleTheme={toggleTheme} theme={theme} handleSearch={handleSearch} search={search} clearSearch={clearSearch} />
                 <Greeting name={props.name} />
                 <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} theme={theme} />
-                <div className={styles.container}>
-                    {adding && <NewCard setAdding={setAdding} setNotes={setNotes} />}
-                    {notes.length > 0 || adding ? notes.slice().reverse().map((element) => {
-                        return <Card key={element._id} noteId={element._id} description={element.description} theme={element.theme} date={element.updatedAt} bookmark={element.bookmark} setNotes={setNotes} notes={notes} setAdding={setAdding} adding={adding} />
-                    }) : <p>No notes to display</p>}
-                </div>
+                {loading ?
+                    <Loading />
+                    :
+                    <div className={styles.container}>
+                        {adding && <NewCard setAdding={setAdding} setNotes={setNotes} />}
+                        {notes.length > 0 || adding ? notes.slice().reverse().map((element) => {
+                            return <Card key={element._id} noteId={element._id} description={element.description} theme={element.theme} date={element.updatedAt} bookmark={element.bookmark} setNotes={setNotes} notes={notes} setAdding={setAdding} adding={adding} />
+                        }) : <p>No notes to display</p>}
+                    </div>}
             </main>
         </div>
     )
