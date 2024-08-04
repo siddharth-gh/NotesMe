@@ -25,7 +25,7 @@ export default function Login(props) {
                     'Content-Type': 'application/json'  // Specify the content type
                 },
                 body: JSON.stringify({
-                    email: emailRef.current.value,
+                    email: emailRef.current.value.toLowerCase(),
                     password: passRef.current.value
                 })
             })
