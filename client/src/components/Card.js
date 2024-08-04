@@ -11,7 +11,7 @@ function Card(props) {
     const { bookmark } = props
 
     // eslint-disable-next-line
-    const { noteId, setNotes, notes, setOriginalNotes } = props
+    const { noteId, setNotes, setOriginalNotes } = props
     const [editing, setEditing] = useState(false);
 
     const handleDelete = async (noteId) => {
@@ -65,7 +65,7 @@ function Card(props) {
                 return notes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: data.updatedAt } : note)
             })
             setOriginalNotes((originalNotes) => {
-                return originalNotes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: new Date().toUTCString() } : note)
+                return originalNotes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: data.updatedAt } : note)
             })
             toast.success("Note updated successfully")
         }

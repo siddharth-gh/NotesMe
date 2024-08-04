@@ -16,7 +16,7 @@ function NewCard(props) {
     const [theme, setTheme] = useState(noteColors[Math.floor(Math.random() * noteColors.length)])
 
     // eslint-disable-next-line
-    const { notes, setNotes, setAdding } = props;
+    const { notes, setNotes, setAdding, setOriginalNotes } = props;
     const [value, setValue] = useState("");
 
     const onChange = (event) => {
@@ -42,6 +42,7 @@ function NewCard(props) {
         const data = rawData.newNote;
 
         setNotes(notes => [...notes, { description: data.description, theme: data.theme, updatedAt: data.updatedAt, _id: data._id }])
+        setOriginalNotes(originalNotes => [...originalNotes, { description: data.description, theme: data.theme, updatedAt: data.updatedAt, _id: data._id }])
         setAdding(false);
         toast.success("Note added successfully");
     }

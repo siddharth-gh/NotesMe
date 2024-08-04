@@ -97,7 +97,7 @@ export default function Home(props) {
                     <Loading />
                     :
                     <div className={styles.container}>
-                        {adding && <NewCard setAdding={setAdding} setNotes={setNotes} />}
+                        {adding && <NewCard setAdding={setAdding} setNotes={setNotes} setOriginalNotes={setOriginalNotes} />}
                         {notes.length > 0 || adding ? notes.slice().reverse().map((element) => {
                             return <Card key={element._id} noteId={element._id} description={element.description} theme={element.theme} date={element.updatedAt} bookmark={element.bookmark} setNotes={setNotes} notes={notes} setAdding={setAdding} adding={adding} setOriginalNotes={setOriginalNotes} />
                         }) : <p>No notes to display</p>}
