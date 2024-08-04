@@ -27,7 +27,7 @@ export default function Login(props) {
                 },
                 body: JSON.stringify({
                     name: nameRef.current.value,
-                    email: emailRef.current.value,
+                    email: emailRef.current.value.toLowerCase(),
                     password: passRef.current.value
                 })
             });
