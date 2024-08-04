@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react'
 import styles from './Card.module.scss'
 import { url } from '../assets';
 import { toast } from 'react-toastify';
+import { Icon } from '@iconify/react'
+import { formatDate } from '../utils/DateFormatter';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -31,8 +33,10 @@ function NewCard(props) {
             body: JSON.stringify({
                 description: value,
                 theme: theme,
+                updatedAt: formatDate(new Date())
             })
         })
+
 
         const rawData = await response.json();
         const data = rawData.newNote;
@@ -42,6 +46,10 @@ function NewCard(props) {
         toast.success("Note added successfully");
     }
 
+    const cancelSave = () => {
+        setAdding(false);
+    }
+
 
     return (
         <>
@@ -49,7 +57,12 @@ function NewCard(props) {
                 <div className={styles.textarea}>
                     <textarea rows={9} value={value} onChange={onChange} ref={textAreaRef} className={styles.description} spellCheck={false} />
                 </div>
-                <button onClick={saveNote}>Save</button>
+                <div className={styles.operations}>
+                    <Icon icon="mdi:tick" onClick={saveNote} />
+                    <Icon icon="charm:cross" onClick={cancelSave} />
+                </div>
+                {/* <button onClick={saveNote}>Save</button>
+                <button onClick={cancelSave} className={styles.cancel}>Cancel</button> */}
             </div >
         </>
     )

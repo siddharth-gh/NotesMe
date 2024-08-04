@@ -21,7 +21,7 @@ const noteSchema = new mongoose.Schema(
         },
         updatedAt: {
             type: String,
-            default: () => new Date().toUTCString()
+            required: true
         }
     },
 

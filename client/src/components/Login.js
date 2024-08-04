@@ -54,16 +54,13 @@ export default function Login(props) {
 
     const togglePassword = () => {
         const passwordInput = document.getElementById('passwordInput');
-        const toggler = document.getElementById('togglePassword');
 
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
-            // toggler.textContent = "🙈"
             setHidden(false)
         }
         else {
             passwordInput.type = 'password';
-            // toggler.textContent = "👁️"
             setHidden(true)
         }
     }

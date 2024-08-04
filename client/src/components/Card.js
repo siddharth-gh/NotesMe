@@ -3,6 +3,7 @@ import styles from './Card.module.scss'
 import { Icon } from '@iconify/react'
 import { url } from '../assets'
 import { toast } from 'react-toastify';
+import { formatDate } from '../utils/DateFormatter';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Card(props) {
@@ -10,7 +11,7 @@ function Card(props) {
     const { bookmark } = props
 
     // eslint-disable-next-line
-    const { noteId, setNotes, notes } = props
+    const { noteId, setNotes, notes, setOriginalNotes } = props
     const [editing, setEditing] = useState(false);
 
     const handleDelete = async (noteId) => {
@@ -24,6 +25,7 @@ function Card(props) {
 
         if (response.ok) {
             setNotes(notes => notes.filter(note => note._id !== noteId))
+            setOriginalNotes(originalNotes => originalNotes.filter(note => note._id !== noteId))
             toast.success("Note deleted successfully")
         }
         else {
@@ -34,7 +36,6 @@ function Card(props) {
 
     const handleEdit = () => {
         setEditing(true);
-
     }
 
     const updateNote = async (noteId) => {
@@ -45,7 +46,8 @@ function Card(props) {
                 'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({
-                description: value
+                description: value,
+                updatedAt: formatDate(new Date())
             })
         })
 
@@ -55,8 +57,15 @@ function Card(props) {
             // Creates a new object using the spread operator { ...note }, which copies all properties of the note.
             // Then, it overrides the description property with the new value.
             // This results in a new note object with the updated description.
+
+            const rawData = await response.json();
+            const data = rawData.updatedNote;
+
             setNotes((notes) => {
-                return notes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: new Date().toUTCString() } : note)
+                return notes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: data.updatedAt } : note)
+            })
+            setOriginalNotes((originalNotes) => {
+                return originalNotes.map(note => note._id === noteId ? { ...note, description: value, updatedAt: new Date().toUTCString() } : note)
             })
             toast.success("Note updated successfully")
         }
@@ -85,6 +94,9 @@ function Card(props) {
             // This results in a new note object with the updated description.
             setNotes((notes) => {
                 return notes.map(note => note._id === noteId ? { ...note, bookmark: !bookmark } : note)
+            })
+            setOriginalNotes((originalNotes) => {
+                return originalNotes.map(note => note._id === noteId ? { ...note, bookmark: !bookmark } : note)
             })
             if (bookmark) {
                 toast.success("Bookmark removed");
@@ -120,7 +132,6 @@ function Card(props) {
                     {editing ?
                         <>
                             <textarea rows={8} value={value} onChange={onChange} spellCheck={false} />
-                            <button onClick={() => updateNote(noteId)}>Update</button>
                         </>
                         :
                         <>
@@ -131,9 +142,18 @@ function Card(props) {
                     }
                 </div>
                 <p className={styles.date}>{props.date}</p>
-                <span >
+                <span className={styles.deleteUpdate}>
                     <Icon icon="icon-park-outline:delete-one" onClick={() => handleDelete(noteId)} />
-                    <Icon icon="fa-regular:edit" onClick={() => handleEdit(noteId)}></Icon>
+                    {/* {editing ?
+                        <Icon icon="mdi:tick" onClick={() => updateNote(noteId)} />
+                        :
+                        <Icon icon="fa-regular:edit" onClick={() => handleEdit(noteId)}></Icon>
+                    } */}
+                    {editing ?
+                        <Icon icon="mdi:tick" onClick={() => updateNote(noteId)} />
+                        :
+                        <Icon icon="fa-regular:edit" onClick={() => handleEdit(noteId)} />
+                    }
                 </span>
             </div >
         </>

@@ -1,7 +1,14 @@
-const moment = require('moment');
-const makeDate = () => {
-    const date = new Date();
-    return (moment(date).format('MMMM Do YYYY, h:mm a')); // e.g., "July 31st 2024, 3:45:29 pm"
+export const formatDate = (date) => {
+    const newDate = new Date(date);
+    const formattedDateTime = newDate.toLocaleString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true // for 12-hour format; use false for 24-hour format
+    });
+    return formattedDateTime;
 }
 
-module.exports = makeDate

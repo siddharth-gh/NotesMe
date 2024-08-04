@@ -16,20 +16,23 @@ router.post('/addnote', fetchUser, async (req, res) => {
     const newNote = await notes.create({
         description: req.body.description,
         theme: req.body.theme,
-        user: req.user
+        user: req.user,
+        updatedAt: req.body.updatedAt
     })
 
     res.status(200).json({
         message: "Note created successfully",
         newNote
     })
+
 })
 
 //API to update a note, auth required
 router.put('/updatenote/:id', async (req, res) => {
     const id = req.params.id
     const newData = req.body.description
-    const updatedNote = await notes.findByIdAndUpdate(id, { description: newData, updatedAt: new Date().toUTCString() })
+    const time = req.body.updatedAt
+    const updatedNote = await notes.findByIdAndUpdate(id, { description: newData, updatedAt: time }, { new: true })
     res.status(200).json({
         message: "Note updated successfully",
         updatedNote

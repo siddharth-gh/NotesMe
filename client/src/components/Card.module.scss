@@ -96,6 +96,23 @@
         font-size: 12px;
         color: rgb(51, 51, 51);
     }
+
+
+
+    .cancel {
+        margin-bottom: -11px;
+        margin-top: 7px
+    }
+
+    .operations {
+        display: flex;
+        justify-content: space-around;
+
+        svg {
+            height: 24px;
+            width: 24px;
+        }
+    }
 }
 
 
@@ -184,6 +201,11 @@
             font-size: 12px;
             line-height: 15px;
             color: rgb(51, 51, 51);
+        }
+
+        .cancel {
+            margin-bottom: -5px;
+            margin-top: 7px
         }
     }
 }
