@@ -56,7 +56,7 @@ function NewCard(props) {
         <>
             <div className={styles.card} style={{ backgroundColor: theme }}>
                 <div className={styles.textarea}>
-                    <textarea rows={9} value={value} onChange={onChange} ref={textAreaRef} className={styles.description} spellCheck={false} />
+                    <textarea rows={9} value={value} onChange={onChange} ref={textAreaRef} className={styles.description} spellCheck={false} placeholder='Start typing...' />
                 </div>
                 <div className={styles.operations}>
                     <Icon icon="mdi:tick" onClick={saveNote} />
