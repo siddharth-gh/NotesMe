@@ -10,6 +10,18 @@
     }
 }
 
+.loaderDark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        color: white;
+        height: 300px;
+        width: 300px;
+    }
+}
+
 @media (max-width: 600px) {
     .loader {
         display: flex;
@@ -19,6 +31,20 @@
 
         svg {
             color: black;
+            height: 100px;
+            width: 100px;
+
+        }
+    }
+
+    .loaderDark {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 11vw;
+
+        svg {
+            color: white;
             height: 100px;
             width: 100px;
 

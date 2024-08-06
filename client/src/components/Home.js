@@ -19,18 +19,21 @@ export default function Home(props) {
 
     const [notes, setNotes] = useState([]);
     const [adding, setAdding] = useState(false);
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState();
     const [originalNotes, setOriginalNotes] = useState(notes)
     const [search, setSearch] = useState("")
     const [loading, setLoading] = useState(true)
 
 
+
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark')
+            localStorage.setItem('theme', 'dark')
         }
         else {
             setTheme('light')
+            localStorage.setItem('theme', 'light')
         }
     }
 
@@ -53,6 +56,19 @@ export default function Home(props) {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
+            if (localStorage.getItem('theme')) {
+                setTheme(localStorage.getItem('theme'))
+            }
+            else {
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    setTheme('dark');
+                    localStorage.setItem('theme', 'dark')
+                }
+                else {
+                    setTheme('light')
+                    localStorage.setItem('theme', 'light')
+                }
+            }
             getNotes();
         }
         else {
@@ -94,7 +110,7 @@ export default function Home(props) {
                 <Greeting name={props.name} />
                 <ToastContainer stacked position="bottom-right" transition={Zoom} autoClose={1500} theme={theme} />
                 {loading ?
-                    <Loading />
+                    <Loading theme={theme} />
                     :
                     <div className={styles.container}>
                         {adding && <NewCard setAdding={setAdding} setNotes={setNotes} setOriginalNotes={setOriginalNotes} />}
