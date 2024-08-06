@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
+    overflow-x: hidden;
     overflow-wrap: break-word;
     /* Allows long words to break and wrap */
     word-break: break-word;
@@ -151,6 +152,7 @@
         flex-direction: column;
         justify-content: space-between;
         overflow: auto;
+        overflow-x: hidden;
         overflow-wrap: break-word;
         /* Allows long words to break and wrap */
         word-break: break-word;
