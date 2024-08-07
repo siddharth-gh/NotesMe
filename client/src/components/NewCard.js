@@ -19,6 +19,8 @@ function NewCard(props) {
     const { notes, setNotes, setAdding, setOriginalNotes } = props;
     const [value, setValue] = useState("");
 
+
+
     const onChange = (event) => {
         setValue(event.target.value)
     }

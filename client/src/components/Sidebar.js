@@ -32,14 +32,21 @@ export default function Sidebar(props) {
             <div className={styles.sidebar} >
                 <div className={styles.logo}><Icon icon="line-md:edit" /></div>
                 <div className={styles.options}>
-
-                    <Icon icon="material-symbols:home" onClick={allNotes} data-mdb-ripple-init />
-                    <Icon icon="mdi:tag" onClick={pinnedNotes} />
-                    <Icon icon="charm:plus" onClick={newNote} />
+                    <abbr title="Home">
+                        <Icon icon="material-symbols:home" onClick={allNotes} data-mdb-ripple-init />
+                    </abbr>
+                    <abbr title="Pinned Notes">
+                        <Icon icon="mdi:tag" onClick={pinnedNotes} />
+                    </abbr>
+                    <abbr title="New Note">
+                        <Icon icon="charm:plus" onClick={newNote} />
+                    </abbr>
 
                 </div >
                 <div className={styles.logout} onClick={handleLogout}>
-                    <Icon icon="material-symbols:logout" />
+                    <abbr title="Logout">
+                        <Icon icon="material-symbols:logout" />
+                    </abbr>
                 </div>
             </div>
         </>

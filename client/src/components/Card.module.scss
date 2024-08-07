@@ -83,9 +83,13 @@
     }
 
     .description {
+        font-family: "Ubuntu", sans-serif;
         font-weight: 500;
         font-size: 18px;
         line-height: 26px;
+        white-space: pre-wrap;
+        /* This property ensures word wrapping */
+        word-wrap: break-word;
     }
 
     svg {
@@ -192,6 +196,9 @@
             font-weight: 500;
             font-size: 15px;
             line-height: 18px;
+            white-space: pre-wrap;
+            /* This property ensures word wrapping */
+            word-wrap: break-word;
         }
 
         svg {

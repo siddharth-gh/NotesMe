@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './Card.module.scss'
 import { Icon } from '@iconify/react'
 import { url } from '../assets'
@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Card(props) {
 
     const { bookmark } = props
+    const editingText = useRef(null)
 
     // eslint-disable-next-line
     const { noteId, setNotes, setOriginalNotes } = props
@@ -131,13 +132,13 @@ function Card(props) {
                 <div className={styles.textarea}>
                     {editing ?
                         <>
-                            <textarea rows={8} value={value} onChange={onChange} spellCheck={false} />
+                            <textarea rows={8} value={value} onChange={onChange} spellCheck={false} ref={editingText} />
                         </>
                         :
                         <>
-                            <p className={styles.description}>
+                            <pre className={styles.description}>
                                 {props.description}
-                            </p>
+                            </pre>
                         </>
                     }
                 </div>
