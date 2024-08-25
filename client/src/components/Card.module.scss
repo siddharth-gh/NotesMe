@@ -17,7 +17,8 @@
     word-break: break-word;
     // box-sizing: border-box;
     color: black;
-    box-shadow: 7px 6px 12px rgb(0 0 0 / 67%);
+
+
 
     .bookmark {
         position: absolute;
@@ -120,6 +121,15 @@
     }
 }
 
+.dark {
+    box-shadow: 7px 6px 12px rgb(0 0 0 / 67%);
+}
+
+.light {
+    box-shadow: 6px 6px 8px #80808082;
+
+}
+
 
 /* For WebKit browsers (e.g., Chrome, Safari) */
 .textarea::-webkit-scrollbar {
@@ -162,7 +172,7 @@
         word-break: break-word;
         // box-sizing: border-box;
         color: black;
-        box-shadow: 7px 6px 12px rgb(0 0 0 / 67%);
+
 
 
         .textarea {
@@ -215,5 +225,14 @@
             margin-bottom: -5px;
             margin-top: 7px
         }
+    }
+
+    .dark {
+        box-shadow: 7px 6px 12px rgb(0 0 0 / 67%);
+    }
+
+    .light {
+        box-shadow: 6px 6px 8px #80808082;
+
     }
 }

@@ -117,11 +117,12 @@ function Card(props) {
         setValue(event.target.value)
     }
 
+    console.log(localStorage.getItem('theme'))
 
 
     return (
         <>
-            <div className={styles.card} style={{ backgroundColor: props.theme }}>
+            <div className={`${styles.card} ${localStorage.getItem('theme') === 'light' ? styles.light : styles.dark}`} style={{ backgroundColor: props.theme }}>
                 <span className={styles.bookmark} onClick={() => addBookmark(noteId)}>
                     {props.bookmark ?
                         <Icon icon="oi:bookmark" className={props.bookmark ? styles.remove_bookmark : styles.remove_bookmark_unactive} />
